@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dfq-Hu-NFz">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="BXQ-mS-Se0">
+            <objects>
+                <navigationController id="dfq-Hu-NFz" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9To-qc-qhL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="4a4-jr-Mtn" kind="relationship" relationship="rootViewController" id="j13-H6-Fh4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HDl-Ra-IMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="39.466666666666669" y="358.78666666666669"/>
+        </scene>
+        <!--Code View Controller-->
+        <scene sceneID="rwa-AI-k4b">
+            <objects>
+                <viewController id="4a4-jr-Mtn" customClass="QRCodeViewController" customModule="WeiboSwiftVersion" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hAh-2p-gjJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="cfK-o9-ryM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ed7-Od-SBp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VD1-fI-ZwM" userLabel="容器">
+                                <rect key="frame" x="10" y="134" width="300" height="300"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode_border" translatesAutoresizingMaskIntoConstraints="NO" id="Yuh-p3-NUI" userLabel="边框">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode_scanline_qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="kmZ-g7-qpe" userLabel="冲气波">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="kmZ-g7-qpe" firstAttribute="top" secondItem="VD1-fI-ZwM" secondAttribute="top" id="7md-N4-CFO"/>
+                                    <constraint firstItem="kmZ-g7-qpe" firstAttribute="height" secondItem="VD1-fI-ZwM" secondAttribute="height" id="E9f-FC-A94"/>
+                                    <constraint firstAttribute="bottom" secondItem="Yuh-p3-NUI" secondAttribute="bottom" id="IFI-5A-BkE"/>
+                                    <constraint firstAttribute="trailing" secondItem="Yuh-p3-NUI" secondAttribute="trailing" id="IpJ-nU-Co1"/>
+                                    <constraint firstItem="Yuh-p3-NUI" firstAttribute="top" secondItem="VD1-fI-ZwM" secondAttribute="top" id="PQX-y8-dwf"/>
+                                    <constraint firstItem="kmZ-g7-qpe" firstAttribute="width" secondItem="VD1-fI-ZwM" secondAttribute="width" id="UXd-6w-7gL"/>
+                                    <constraint firstItem="kmZ-g7-qpe" firstAttribute="centerX" secondItem="VD1-fI-ZwM" secondAttribute="centerX" id="dX6-Bn-Rbw"/>
+                                    <constraint firstAttribute="height" constant="300" id="jqv-qr-OV3"/>
+                                    <constraint firstAttribute="width" constant="300" id="sI1-2d-Qx4"/>
+                                    <constraint firstItem="Yuh-p3-NUI" firstAttribute="leading" secondItem="VD1-fI-ZwM" secondAttribute="leading" id="sUT-XC-M2d"/>
+                                </constraints>
+                            </view>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4Y-dX-WfJ">
+                                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="g1m-FU-kyE"/>
+                                </constraints>
+                                <items>
+                                    <tabBarItem tag="1" title="二维码" image="qrcode_tabbar_icon_qrcode" id="MM6-lT-Ovx"/>
+                                    <tabBarItem title="条形码" image="qrcode_tabbar_icon_barcode_highlighted" id="Aor-FV-YhE"/>
+                                </items>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </tabBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6T-Z3-Nph">
+                                <rect key="frame" x="134" y="452" width="52" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="我的名片" backgroundImage="qrcode_button_background"/>
+                                <connections>
+                                    <action selector="myCardBtnClick:" destination="4a4-jr-Mtn" eventType="touchUpInside" id="QIw-BS-VJy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="w6T-Z3-Nph" firstAttribute="centerX" secondItem="ed7-Od-SBp" secondAttribute="centerX" id="0A7-bW-zoV"/>
+                            <constraint firstItem="w6T-Z3-Nph" firstAttribute="top" secondItem="VD1-fI-ZwM" secondAttribute="bottom" constant="18" id="2KB-IR-w5B"/>
+                            <constraint firstItem="cfK-o9-ryM" firstAttribute="top" secondItem="P4Y-dX-WfJ" secondAttribute="bottom" id="SzK-LY-7my"/>
+                            <constraint firstAttribute="trailing" secondItem="P4Y-dX-WfJ" secondAttribute="trailing" id="drf-91-vfd"/>
+                            <constraint firstItem="VD1-fI-ZwM" firstAttribute="centerX" secondItem="ed7-Od-SBp" secondAttribute="centerX" id="ee5-d0-ds5"/>
+                            <constraint firstItem="P4Y-dX-WfJ" firstAttribute="leading" secondItem="ed7-Od-SBp" secondAttribute="leading" id="uZz-4j-jYi"/>
+                            <constraint firstItem="VD1-fI-ZwM" firstAttribute="centerY" secondItem="ed7-Od-SBp" secondAttribute="centerY" id="vTT-Ww-CeC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Fhw-7v-pik">
+                        <barButtonItem key="leftBarButtonItem" title="关闭" id="bmm-UQ-Lyv">
+                            <connections>
+                                <action selector="CloseBtnClick:" destination="4a4-jr-Mtn" id="mZU-eV-bNh"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="相册" id="VJb-wh-VgL"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="containerHeightCons" destination="jqv-qr-OV3" id="Igv-BB-esV"/>
+                        <outlet property="customTabBar" destination="P4Y-dX-WfJ" id="7SN-xY-TIK"/>
+                        <outlet property="scanLineTopCons" destination="7md-N4-CFO" id="ElL-kj-0gm"/>
+                        <outlet property="scanLineView" destination="kmZ-g7-qpe" id="4mZ-rh-NEc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vw7-bf-psD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="436" y="358"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="qrcode_border" width="51" height="51"/>
+        <image name="qrcode_button_background" width="34" height="32"/>
+        <image name="qrcode_scanline_qrcode" width="218" height="170"/>
+        <image name="qrcode_tabbar_icon_barcode_highlighted" width="40" height="40"/>
+        <image name="qrcode_tabbar_icon_qrcode" width="40" height="40"/>
+    </resources>
+</document>

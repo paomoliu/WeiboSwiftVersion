@@ -1,0 +1,141 @@
+//
+//  StatusPictureView.swift
+//  WeiboSwiftVersion
+//
+//  Created by paomoliu on 16/8/29.
+//  Copyright © 2016年 Sunshine Girl. All rights reserved.
+//
+
+import UIKit
+import SDWebImage
+
+class StatusPictureView: UICollectionView
+{
+    var status: Status? {
+        didSet {
+            reloadData()
+        }
+    }
+    private var pictureViewLayout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    
+    init()
+    {
+        super.init(frame: CGRectZero, collectionViewLayout: pictureViewLayout)
+        
+        //1.注册cell
+        registerClass(PictureCell.self, forCellWithReuseIdentifier: kPictrueViewReuseIdentifier)
+        
+        //2.设置数据源
+        dataSource = self
+        
+        //3.设置cell间间隙
+        pictureViewLayout.minimumInteritemSpacing = 10
+        pictureViewLayout.minimumLineSpacing = 10
+        
+        backgroundColor = UIColor.darkGrayColor()
+    }
+    
+    /**
+     计算配图尺寸
+     */
+    func calulateImageSize() -> CGSize
+    {
+        //1.取出配图个数
+        let count = status?.storyedPicUrls?.count
+        
+        //2.如果没有配图返回zero
+        if count == 0 || count == nil
+        {
+            return CGSizeZero
+        }
+        
+        //3.如果只有一张配图，返回图片实际大小
+        if count == 1
+        {
+            //3.1取出缓存图片
+            let key = status?.storyedPicUrls!.first?.absoluteString
+            let image = SDWebImageManager.sharedManager().imageCache.imageFromDiskCacheForKey(key)
+            pictureViewLayout.itemSize = image.size
+            //3.2返回缓存图片大小
+            
+            return image.size
+        }
+        
+        //4.如果四张配图，计算田字格的大小
+        let width = 90
+        let margin = 10
+        pictureViewLayout.itemSize = CGSize(width: width, height: width)
+        if count == 4
+        {
+            let viewWidth = width * 2 + margin
+            
+            return CGSize(width: viewWidth, height: viewWidth)
+        }
+        
+        //5.如果是其它，计算九宫格的大小
+        /*
+        2/3
+        5/6
+        7/8/9
+        */
+        //5.1计算列数
+        let colNumber = 3
+        //5.2计算行数
+        //              ( 2 - 1) / 3 + 1
+        let rowNumber = (count! - 1) / 3 + 1
+        //宽度 ＝ 列数 * 图片的宽度 + (列数 － 1) * 间隙
+        let viewWidth = colNumber * width + (colNumber - 1) * margin
+        //高度 ＝ 行数 * 图片的高度 + (行数 － 1) * 间隙
+        let viewHeight = rowNumber * width + (rowNumber - 1) * margin
+        
+        return CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    //内部类，说明只是包含它的类使用，提高阅读能力
+    private class PictureCell: UICollectionViewCell
+    {
+        var pictureUrl: NSURL? {
+            didSet {
+                pictureView.sd_setImageWithURL(pictureUrl)
+            }
+        }
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            setupUI()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupUI()
+        {
+            contentView.addSubview(pictureView)
+            pictureView.xmg_Fill(contentView)
+        }
+        
+        //MARK: - 懒加载
+        private lazy var pictureView: UIImageView = UIImageView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension StatusPictureView: UICollectionViewDataSource
+{
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return status?.storyedPicUrls?.count ?? 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kPictrueViewReuseIdentifier, forIndexPath: indexPath) as! PictureCell
+        //        cell.backgroundColor = UIColor.greenColor()
+        cell.pictureUrl = status?.storyedPicUrls![indexPath.item]
+        
+        return cell
+    }
+}
