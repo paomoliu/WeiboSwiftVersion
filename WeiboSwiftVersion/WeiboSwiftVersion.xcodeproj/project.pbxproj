@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		651E7D9A1D75828F0034ACD1 /* HomeRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 651E7D991D75828F0034ACD1 /* HomeRefreshView.xib */; };
+		651E7D9C1D7585080034ACD1 /* HomeRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E7D9B1D7585080034ACD1 /* HomeRefreshControl.swift */; };
 		656AC1201D6AEAB200637308 /* Popover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 656AC11F1D6AEAB200637308 /* Popover.storyboard */; };
 		656AC1221D6AF01C00637308 /* PopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AC1211D6AF01C00637308 /* PopoverPresentationController.swift */; };
 		656AC1241D6AF1DD00637308 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AC1231D6AF1DD00637308 /* PopoverViewController.swift */; };
@@ -70,6 +72,8 @@
 /* Begin PBXFileReference section */
 		279ED9D6F87726F4F0FC176D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3A49FD52E44BFC232266DE4C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		651E7D991D75828F0034ACD1 /* HomeRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeRefreshView.xib; sourceTree = "<group>"; };
+		651E7D9B1D7585080034ACD1 /* HomeRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRefreshControl.swift; sourceTree = "<group>"; };
 		656AC11F1D6AEAB200637308 /* Popover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Popover.storyboard; sourceTree = "<group>"; };
 		656AC1211D6AF01C00637308 /* PopoverPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationController.swift; sourceTree = "<group>"; };
 		656AC1231D6AF1DD00637308 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
@@ -295,6 +299,8 @@
 				656AC1291D6B3B8C00637308 /* QRCode */,
 				656AC11E1D6AEA8400637308 /* Popover */,
 				65A8342E1D68443200F83BBF /* HomeTableViewController.swift */,
+				651E7D991D75828F0034ACD1 /* HomeRefreshView.xib */,
+				651E7D9B1D7585080034ACD1 /* HomeRefreshControl.swift */,
 				65AF9CBA1D74733D0047F404 /* StatusTableViewBottomView.swift */,
 				6573AAF91D727F4A005C5657 /* Status.swift */,
 				6573AAFB1D729751005C5657 /* User.swift */,
@@ -472,6 +478,7 @@
 			files = (
 				65A834391D684E1200F83BBF /* MainVCSettings.json in Resources */,
 				656AC1201D6AEAB200637308 /* Popover.storyboard in Resources */,
+				651E7D9A1D75828F0034ACD1 /* HomeRefreshView.xib in Resources */,
 				656AC12B1D6B3BAC00637308 /* QRCode.storyboard in Resources */,
 				65A833FD1D683D4F00F83BBF /* Assets.xcassets in Resources */,
 			);
@@ -564,6 +571,7 @@
 				6577559C1D69547500116E30 /* BaseTableViewController.swift in Sources */,
 				658A3BCE1D6C427600342B96 /* QRCodeCardViewController.swift in Sources */,
 				6573AB001D72C627005C5657 /* UILabel+Category.swift in Sources */,
+				651E7D9C1D7585080034ACD1 /* HomeRefreshControl.swift in Sources */,
 				658810CD1D7535850052267A /* StatusRetweetTableViewCell.swift in Sources */,
 				6573AAFA1D727F4A005C5657 /* Status.swift in Sources */,
 				65A833F91D683D4F00F83BBF /* AppDelegate.swift in Sources */,

@@ -27,21 +27,33 @@ class HomeTableViewController: BaseTableViewController {
             return
         }
         
+        //1.设置导航栏
         setNav()
         
-        //注册通知，监听菜单
+        //2.注册通知，监听菜单
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: kVCWillShow, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: kVCWillDismiss, object: nil)
         
-        //注册两个cell
+        //3.注册两个cell
         tableView.registerClass(StatusRetweetTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.RetWeetCellID.rawValue)
         tableView.registerClass(StatusNormalTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.NormalCellID.rawValue)
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 200
         
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        
+        //4.添加下拉刷新
+        //UIRefreshControl -> UIControl -> UIView
+        /*refreshControl = UIRefreshControl()
+        let refreshView = UIView();
+        refreshView.frame = CGRect(x: 0, y: 0, width: 375, height: 60)
+        refreshView.backgroundColor = UIColor.greenColor()
+        refreshControl?.addSubview(refreshView)
+        refreshControl?.endRefreshing()*/
+        refreshControl = HomeRefreshControl()
+        refreshControl?.addTarget(self, action: "loadData", forControlEvents: UIControlEvents.ValueChanged)
 
-        //4.加载微博数据
+        //5.加载微博数据
         loadData()
     }
     
@@ -53,16 +65,44 @@ class HomeTableViewController: BaseTableViewController {
     
     /**
      获取微博数据
+     如果想要调用一个私有的方法：
+     1.去掉private
+     2.加@objc，当作OC方法来处理
      */
-    private func loadData()
+    func loadData()
     {
-        Status.loadStatuses { (models, error) -> () in
+        /*
+        1.默认最新返回20条数据
+        2.since_id : 会返回比since_id大的微博
+        3.max_id: 会返回小于等于max_id的微博
+
+        每条微博都有一个微博ID, 而且微博ID越后面发送的微博, 它的微博ID越大
+        递增
+
+        新浪返回给我们的微博数据, 是从大到小的返回给我们的
+        */
+        
+        let since_id = models?.first!.id ?? 0
+        Status.loadStatuses(since_id) { (models, error) -> () in
+            //结束刷新动画
+            self.refreshControl?.endRefreshing()
+            
             if error != nil
             {
                 return
             }
             
-            self.models = models
+            if since_id > 0
+            {
+                //由于下拉刷新时，传递since_id参数获取回来的数据是比since_id大的微博，所以需要拼接在原始数据前面
+                self.models = models! + self.models!
+                
+                //显示刷新提示
+                self.showRefreshCount((models?.count)!)
+            } else
+            {
+                self.models = models
+            }
         }
     }
     
@@ -78,6 +118,8 @@ class HomeTableViewController: BaseTableViewController {
         let vc = storyboard.instantiateInitialViewController()
         presentViewController(vc!, animated: true, completion: nil)
     }
+    
+    
     
     func change()
     {
@@ -105,6 +147,22 @@ class HomeTableViewController: BaseTableViewController {
         presentViewController(popoverVC!, animated: true, completion: nil)
     }
     
+    private func showRefreshCount(count: Int)
+    {
+        refreshWarnLabel.hidden = false
+        refreshWarnLabel.text = count == 0 ? "没有刷新到新微博" : "\(count)条新微博"
+        
+        UIView.animateWithDuration(3, animations: { () -> Void in
+            self.refreshWarnLabel.transform = CGAffineTransformMakeTranslation(0, self.refreshWarnLabel.frame.height)
+            }) { (_) -> Void in
+                UIView.animateWithDuration(3, animations: { () -> Void in
+                    self.refreshWarnLabel.transform = CGAffineTransformIdentity
+                    }, completion: { (_) -> Void in
+                        self.refreshWarnLabel.hidden = true
+                })
+        }
+    }
+    
     private func setNav()
     {
         //1.初始化左右按钮
@@ -128,11 +186,28 @@ class HomeTableViewController: BaseTableViewController {
 //        return UIBarButtonItem(customView: btn)
 //    }
     
+    //MARK: - 懒加载
     //一定要定义一个属性来保存自定义转场对象，否则会报错
     private lazy var popoverAnimation: PopoverAnimation = {
         let pa = PopoverAnimation()
         pa.presentFrame = CGRect(x: 100, y: 56, width: 200, height: 350)
+        
         return pa
+    }()
+    
+    private lazy var refreshWarnLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 14, width: UIScreen.mainScreen().bounds.width, height: 30)
+        label.textAlignment = NSTextAlignment.Center
+        label.textColor = UIColor.whiteColor()
+        label.font = UIFont.systemFontOfSize(12)
+        label.backgroundColor = UIColor(red: 250.0/255.0, green: 127.0/255.0, blue: 0.0, alpha: 0.8)
+        label.hidden = true
+        
+        // 加载 navBar 上面，不会随着 tableView 一起滚动
+        self.navigationController?.navigationBar.insertSubview(label, atIndex: 0)
+        
+        return label
     }()
     
     /// 微博行高的缓存，利用字典作为容器，key就是微博的id，值对应行高

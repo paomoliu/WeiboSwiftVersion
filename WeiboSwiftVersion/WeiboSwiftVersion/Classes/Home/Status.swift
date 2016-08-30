@@ -99,14 +99,20 @@ class Status: NSObject{
     /// 保存转发微博内容
     var retweeted_status: Status?
     /// 如果有转发，原创微博就不会显示配图，那就不需要缓存原创微博配图，只需要缓存转发配图
-    /// 保存需进行缓存的配图URL
+    /// 定义一个计算属性，用于返回原创或者转发配图的URL数据
     var pictureUrls: [NSURL]? {
         return retweeted_status?.storyedPicUrls != nil ? retweeted_status?.storyedPicUrls : storyedPicUrls
     }
     
-    class func loadStatuses(finished: (models: [Status]?, error: NSError?)->()) {
+    class func loadStatuses(since_id: Int, finished: (models: [Status]?, error: NSError?)->()) {
         let path = "2/statuses/home_timeline.json"
-        let params = ["access_token": UserAccount.readAccount()!.access_token!]
+        var params = ["access_token": UserAccount.readAccount()!.access_token!]
+        
+        //下拉刷新
+        if since_id > 0
+        {
+            params["since_id"] = "\(since_id)"
+        }
         
         NetworkTools.shareNetworkTools().GET(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
 //            print(JSON)
@@ -123,11 +129,19 @@ class Status: NSObject{
     
     //缓存微博配图
     class func cacheStatusImages(list: [Status], finished: (models: [Status]?, error: NSError?)->()) {
+        if list.count == 0
+        {
+            finished(models: list, error: nil)
+            
+            return
+        }
+        
         //创建一个组
         let group = dispatch_group_create()
         
         for status in list
         {
+            
             //判断当前微博是否有配图，如果没有就直接跳过
 //            if status.storyedPicUrls == nil
 //            {
