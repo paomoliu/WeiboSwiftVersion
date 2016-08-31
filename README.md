@@ -1,2 +1,2 @@
 # WeiboSwiftVersion
-使用Swift写的新浪微博Demo
+初学Swift练手的新浪微博Demo
