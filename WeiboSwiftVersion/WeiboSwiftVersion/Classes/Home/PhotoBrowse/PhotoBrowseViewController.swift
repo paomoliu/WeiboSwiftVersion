@@ -49,6 +49,7 @@ class PhotoBrowseViewController: UIViewController
         closeBtn.xmg_AlignInner(type: XMG_AlignType.BottomLeft, referView: view, size: CGSize(width: 100, height: 40), offset: CGPoint(x: 10, y: -10))
         saveBtn.xmg_AlignInner(type: XMG_AlignType.BottomRight, referView: view, size: CGSize(width: 100, height: 40), offset: CGPoint(x: -10, y: -10))
         collectionView.frame = UIScreen.mainScreen().bounds
+        collectionView.contentOffset.x = UIScreen.mainScreen().bounds.width * CGFloat(currentIndex!)
         
         //3.设置数据源
         collectionView.dataSource = self
