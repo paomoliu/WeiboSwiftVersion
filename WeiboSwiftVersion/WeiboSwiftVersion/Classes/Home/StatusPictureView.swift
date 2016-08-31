@@ -27,6 +27,7 @@ class StatusPictureView: UICollectionView
         
         //2.设置数据源
         dataSource = self
+        delegate = self
         
         //3.设置cell间间隙
         pictureViewLayout.minimumInteritemSpacing = 10
@@ -96,7 +97,14 @@ class StatusPictureView: UICollectionView
     {
         var pictureUrl: NSURL? {
             didSet {
+                //1.设置图片
                 pictureView.sd_setImageWithURL(pictureUrl)
+                
+                //2.判断是否需要显示gif图标 -- GIF
+                if (pictureUrl!.absoluteString as NSString).pathExtension.lowercaseString == "gif"
+                {
+                    gifView.hidden = false
+                }
             }
         }
         
@@ -113,11 +121,20 @@ class StatusPictureView: UICollectionView
         private func setupUI()
         {
             contentView.addSubview(pictureView)
+            pictureView.addSubview(gifView)
+            
             pictureView.xmg_Fill(contentView)
+            gifView.xmg_AlignInner(type: XMG_AlignType.BottomRight, referView: pictureView, size: CGSize(width: 28, height: 18))
         }
         
         //MARK: - 懒加载
         private lazy var pictureView: UIImageView = UIImageView()
+        private lazy var gifView: UIImageView = {
+            let gifView = UIImageView(image: UIImage(named: "timeline_image_gif"))
+            gifView.hidden = true
+            
+            return gifView
+        }()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -125,7 +142,11 @@ class StatusPictureView: UICollectionView
     }
 }
 
-extension StatusPictureView: UICollectionViewDataSource
+let kHomePictureSelected = "kHomePictureSelected"
+let kCurrentPictureIndexKey = "kCurrentPictureIndexKey"
+let kLargePictureUrlsKey = "kPictureUrlsKey"
+
+extension StatusPictureView: UICollectionViewDataSource, UICollectionViewDelegate
 {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return status?.storyedPicUrls?.count ?? 0
@@ -137,5 +158,12 @@ extension StatusPictureView: UICollectionViewDataSource
         cell.pictureUrl = status?.storyedPicUrls![indexPath.item]
         
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        //应该使用控制器跳转到控制器，从当前视图传递通知到首页控制器，经过了cell，传两层
+        //一层用代理，两层用通知比较好
+        let info = [kCurrentPictureIndexKey: indexPath, kLargePictureUrlsKey: status!.storyedLargePicUrls!]
+        NSNotificationCenter.defaultCenter().postNotificationName(kHomePictureSelected, object: self, userInfo: info)
     }
 }

@@ -32,6 +32,9 @@
 		65A315971D6EC7E70040820C /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A315961D6EC7E70040820C /* NetworkTools.swift */; };
 		65A315991D6ED4C20040820C /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A315981D6ED4C20040820C /* UserAccount.swift */; };
 		65A3159B1D6EE1D60040820C /* String+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A3159A1D6EE1D60040820C /* String+Category.swift */; };
+		65A4638E1D76824100E3BCD8 /* PhotoBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4638D1D76824100E3BCD8 /* PhotoBrowseViewController.swift */; };
+		65A463901D76B06700E3BCD8 /* UIColor+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4638F1D76B06700E3BCD8 /* UIColor+Category.swift */; };
+		65A463921D76B1C500E3BCD8 /* PhotoBrowseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A463911D76B1C500E3BCD8 /* PhotoBrowseCell.swift */; };
 		65A833F91D683D4F00F83BBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A833F81D683D4F00F83BBF /* AppDelegate.swift */; };
 		65A833FD1D683D4F00F83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65A833FC1D683D4F00F83BBF /* Assets.xcassets */; };
 		65A8340B1D683D4F00F83BBF /* WeiboSwiftVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A8340A1D683D4F00F83BBF /* WeiboSwiftVersionTests.swift */; };
@@ -97,6 +100,9 @@
 		65A315961D6EC7E70040820C /* NetworkTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
 		65A315981D6ED4C20040820C /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		65A3159A1D6EE1D60040820C /* String+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Category.swift"; sourceTree = "<group>"; };
+		65A4638D1D76824100E3BCD8 /* PhotoBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowseViewController.swift; sourceTree = "<group>"; };
+		65A4638F1D76B06700E3BCD8 /* UIColor+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Category.swift"; sourceTree = "<group>"; };
+		65A463911D76B1C500E3BCD8 /* PhotoBrowseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowseCell.swift; sourceTree = "<group>"; };
 		65A833F51D683D4F00F83BBF /* WeiboSwiftVersion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeiboSwiftVersion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A833F81D683D4F00F83BBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65A833FC1D683D4F00F83BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -197,6 +203,15 @@
 			path = NewFeatrue;
 			sourceTree = "<group>";
 		};
+		65A4638A1D7681C300E3BCD8 /* PhotoBrowse */ = {
+			isa = PBXGroup;
+			children = (
+				65A4638D1D76824100E3BCD8 /* PhotoBrowseViewController.swift */,
+				65A463911D76B1C500E3BCD8 /* PhotoBrowseCell.swift */,
+			);
+			path = PhotoBrowse;
+			sourceTree = "<group>";
+		};
 		65A833EC1D683D4F00F83BBF = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +289,7 @@
 				6573AAFF1D72C627005C5657 /* UILabel+Category.swift */,
 				6573AB011D72C63C005C5657 /* UIButton+Category.swift */,
 				65AF9CB81D740BE60047F404 /* NSDate+Category.swift */,
+				65A4638F1D76B06700E3BCD8 /* UIColor+Category.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -296,19 +312,20 @@
 		65A834271D6842FB00F83BBF /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				65A4638A1D7681C300E3BCD8 /* PhotoBrowse */,
 				656AC1291D6B3B8C00637308 /* QRCode */,
 				656AC11E1D6AEA8400637308 /* Popover */,
 				65A8342E1D68443200F83BBF /* HomeTableViewController.swift */,
 				651E7D991D75828F0034ACD1 /* HomeRefreshView.xib */,
 				651E7D9B1D7585080034ACD1 /* HomeRefreshControl.swift */,
 				65AF9CBA1D74733D0047F404 /* StatusTableViewBottomView.swift */,
-				6573AAF91D727F4A005C5657 /* Status.swift */,
-				6573AAFB1D729751005C5657 /* User.swift */,
 				6573AAFD1D72A571005C5657 /* StatusTableViewCell.swift */,
 				658810CC1D7535850052267A /* StatusRetweetTableViewCell.swift */,
 				65AF9CBC1D7473EF0047F404 /* StatusTableViewTopView.swift */,
 				65AF9CBE1D7477A50047F404 /* StatusPictureView.swift */,
 				658810CE1D75522C0052267A /* StatusNormalTableViewCell.swift */,
+				6573AAF91D727F4A005C5657 /* Status.swift */,
+				6573AAFB1D729751005C5657 /* User.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -569,11 +586,14 @@
 				65A315971D6EC7E70040820C /* NetworkTools.swift in Sources */,
 				65AF9CBF1D7477A50047F404 /* StatusPictureView.swift in Sources */,
 				6577559C1D69547500116E30 /* BaseTableViewController.swift in Sources */,
+				65A463921D76B1C500E3BCD8 /* PhotoBrowseCell.swift in Sources */,
 				658A3BCE1D6C427600342B96 /* QRCodeCardViewController.swift in Sources */,
 				6573AB001D72C627005C5657 /* UILabel+Category.swift in Sources */,
 				651E7D9C1D7585080034ACD1 /* HomeRefreshControl.swift in Sources */,
 				658810CD1D7535850052267A /* StatusRetweetTableViewCell.swift in Sources */,
 				6573AAFA1D727F4A005C5657 /* Status.swift in Sources */,
+				65A463901D76B06700E3BCD8 /* UIColor+Category.swift in Sources */,
+				65A4638E1D76824100E3BCD8 /* PhotoBrowseViewController.swift in Sources */,
 				65A833F91D683D4F00F83BBF /* AppDelegate.swift in Sources */,
 				65A834331D68445A00F83BBF /* MessageTableViewController.swift in Sources */,
 				65F0FACD1D698AE50026835A /* UIBarButtonItem+Category.swift in Sources */,

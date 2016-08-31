@@ -33,6 +33,7 @@ class HomeTableViewController: BaseTableViewController {
         //2.注册通知，监听菜单
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: kVCWillShow, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: kVCWillDismiss, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showPhotoBrowse:", name: kHomePictureSelected, object: nil)
         
         //3.注册两个cell
         tableView.registerClass(StatusRetweetTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.RetWeetCellID.rawValue)
@@ -147,6 +148,29 @@ class HomeTableViewController: BaseTableViewController {
         
     }
     
+    func showPhotoBrowse(notify: NSNotification)
+    {
+        //注意：如果通过通知传递数据，一定要判断数据是否存在
+        guard let indexPath = notify.userInfo![kCurrentPictureIndexKey] as? NSIndexPath else
+        {
+            print("没有indexPath")
+            
+            return
+        }
+        
+        guard let picUrls = notify.userInfo![kLargePictureUrlsKey] as? [NSURL] else
+        {
+            print("没有配图大图Urls")
+            
+            return
+        }
+        
+        //1.创建图片浏览器
+        let vc = PhotoBrowseViewController(index: indexPath.item, urls: picUrls)
+        //2.显示图片浏览器
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
     func titleBtnClicked(btn: TitleButton)
     {
         //1.修改箭头方向
@@ -241,7 +265,6 @@ class HomeTableViewController: BaseTableViewController {
 extension HomeTableViewController
 {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("models?.count ======= \(models?.count)")
         return models?.count ?? 0
     }
     

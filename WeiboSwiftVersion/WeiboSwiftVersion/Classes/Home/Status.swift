@@ -81,19 +81,31 @@ class Status: NSObject{
         didSet {
             // 1.初始化数组
             storyedPicUrls = [NSURL]()
+            storyedLargePicUrls = [NSURL]()
             // 2遍历取出所有的图片路径字符串
             for picDict in pic_urls!
             {
-                if let urlStr = picDict["thumbnail_pic"]
+                if let urlStr = picDict["thumbnail_pic"] as? String
                 {
-                    // 将字符串转换为URL保存到数组中
-                    storyedPicUrls?.append(NSURL(string: urlStr as! String)!)
+                    /*
+                    配图URL：http://ww4.sinaimg.cn/thumbnail/005NFHyQgw1f7c4y1f4elj316e0fsgp5.jpg
+                    大图URL：http://ww4.sinaimg.cn/large/005NFHyQgw1f7c4y1f4elj316e0fsgp5.jpg
+                    */
+                    
+                    // 1.将字符串转换为URL保存到数组中
+                    storyedPicUrls?.append(NSURL(string: urlStr)!)
+                    
+                    //转换配图URL为大图URL保存到数组中
+                    let largeUrl = urlStr.stringByReplacingOccurrencesOfString("thumbnail", withString: "large")
+                    storyedLargePicUrls?.append(NSURL(string: largeUrl)!)
                 }
             }
         }
     }
     /// 保存转换好的配图URL，在swift开发中，最好是将所有的东西提前准备好
     var storyedPicUrls: [NSURL]?
+    /// 保存当前微博所有配图“大图”的URL
+    var storyedLargePicUrls: [NSURL]?
     /// 用户
     var user: User?
     /// 保存转发微博内容
@@ -101,7 +113,11 @@ class Status: NSObject{
     /// 如果有转发，原创微博就不会显示配图，那就不需要缓存原创微博配图，只需要缓存转发配图
     /// 定义一个计算属性，用于返回原创或者转发配图的URL数据
     var pictureUrls: [NSURL]? {
-        return retweeted_status?.storyedPicUrls != nil ? retweeted_status?.storyedPicUrls : storyedPicUrls
+        return retweeted_status != nil ? retweeted_status?.storyedPicUrls : storyedPicUrls
+    }
+    /// 定义一个计算属性，用于返回原创或者转发配图大图的URL数据
+    var largePictureUrls: [NSURL]? {
+        return retweeted_status != nil ? retweeted_status?.storyedLargePicUrls : storyedLargePicUrls
     }
     
     class func loadStatuses(since_id: Int, max_id: Int, finished: (models: [Status]?, error: NSError?)->()) {
