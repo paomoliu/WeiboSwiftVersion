@@ -63,6 +63,8 @@ class HomeTableViewController: BaseTableViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    //记录是否是下拉加载更多
+    var pullDownFlag = false
     /**
      获取微博数据
      如果想要调用一个私有的方法：
@@ -82,8 +84,20 @@ class HomeTableViewController: BaseTableViewController {
         新浪返回给我们的微博数据, 是从大到小的返回给我们的
         */
         
-        let since_id = models?.first!.id ?? 0
-        Status.loadStatuses(since_id) { (models, error) -> () in
+        // 1.默认当做下拉处理
+        var since_id = models?.first!.id ?? 0
+        var max_id = 0
+        
+        // 2.判断是否是上拉
+        if pullDownFlag
+        {
+            since_id = 0
+            max_id = models?.last?.id ?? 0
+            //重置变量值
+            //问题？pullDownFlag无重置值为false，如果用户加载更多后又返回头部刷新，就会出现依旧是加载更多而并非刷新的情况
+            pullDownFlag = false
+        }
+        Status.loadStatuses(since_id, max_id: max_id) { (models, error) -> () in
             //结束刷新动画
             self.refreshControl?.endRefreshing()
             
@@ -98,7 +112,11 @@ class HomeTableViewController: BaseTableViewController {
                 self.models = models! + self.models!
                 
                 //显示刷新提示
-                self.showRefreshCount((models?.count)!)
+                self.showRefreshCount((models?.count) ?? 0)
+            } else if max_id > 0
+            {
+                // 如果是上拉加载更多, 就将获取到的数据, 拼接在原有数据的后面
+                self.models = self.models! + models!
             } else
             {
                 self.models = models
@@ -223,6 +241,7 @@ class HomeTableViewController: BaseTableViewController {
 extension HomeTableViewController
 {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("models?.count ======= \(models?.count)")
         return models?.count ?? 0
     }
     
@@ -231,6 +250,15 @@ extension HomeTableViewController
         let cell = tableView.dequeueReusableCellWithIdentifier(StatusTableViewCellIdentifier.cellID(status), forIndexPath: indexPath) as! StatusTableViewCell
 //        cell.textLabel?.text = status.text
         cell.status = status
+        
+        //判断是否是最后一个cell
+        let count = models?.count ?? 0
+        if indexPath.row == count - 1
+        {
+            pullDownFlag = true
+            //下拉加载更多
+            loadData()
+        }
         
         return cell
     }

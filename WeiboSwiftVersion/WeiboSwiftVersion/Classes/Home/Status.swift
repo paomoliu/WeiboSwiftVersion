@@ -104,7 +104,7 @@ class Status: NSObject{
         return retweeted_status?.storyedPicUrls != nil ? retweeted_status?.storyedPicUrls : storyedPicUrls
     }
     
-    class func loadStatuses(since_id: Int, finished: (models: [Status]?, error: NSError?)->()) {
+    class func loadStatuses(since_id: Int, max_id: Int, finished: (models: [Status]?, error: NSError?)->()) {
         let path = "2/statuses/home_timeline.json"
         var params = ["access_token": UserAccount.readAccount()!.access_token!]
         
@@ -112,6 +112,13 @@ class Status: NSObject{
         if since_id > 0
         {
             params["since_id"] = "\(since_id)"
+        }
+        
+        //上拉加载更多
+        if max_id > 0
+        {
+            //传递max_id会使返回的数据包含max_id对应的微博数据，这样在拼接数据时就包含两条max_id对应的数据，所以这里需要－1
+            params["max_id"] = "\(max_id - 1)"
         }
         
         NetworkTools.shareNetworkTools().GET(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
