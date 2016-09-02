@@ -86,11 +86,11 @@ class PopoverAnimation: NSObject, UIViewControllerTransitioningDelegate, UIViewC
     func animateTransition(transitionContext: UIViewControllerContextTransitioning)
     {
         //1.拿到展现的视图ra
-        //        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        //        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        //        //通过打印发现需要修改的就是toVC上的View
-        //        print(toVC)
-        //        print(fromVC)
+//        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+//        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+//        //通过打印发现需要修改的就是toVC上的View
+//        print(toVC)
+//        print(fromVC)
         
         if isPresent
         {

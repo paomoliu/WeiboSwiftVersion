@@ -42,7 +42,6 @@ class HomeRefreshControl: UIRefreshControl
     //定义变量记录是否正在刷新，防止刷新动画未结束前添加多个刷新动画
     private var refreshingFlag = false
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-//        print(frame.origin.y)
         
         //过滤掉不需要的数据
         if frame.origin.y >= 0

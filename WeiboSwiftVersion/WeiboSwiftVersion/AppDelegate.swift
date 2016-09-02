@@ -31,8 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //3.显示Window
         window?.makeKeyAndVisible()
         
-        print(isNewUpdate())
-        
         return true
     }
     
@@ -74,8 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //2.获取以前版本号 ---> 从本地存储中读取（以前存储的）
         //？？的作用是如果前面为nil，则将值变为""
         let sandBoxVersion = NSUserDefaults.standardUserDefaults().valueForKey("CFBundleShortVersionString") as? String ?? ""
-        
-        print("currentVersion = \(currentVersion), sandBoxVersion = \(sandBoxVersion)")
         //3.比较两个版本号
         //    2.0                    1.0  ---> 降序
         if currentVersion.compare(sandBoxVersion) == NSComparisonResult.OrderedDescending

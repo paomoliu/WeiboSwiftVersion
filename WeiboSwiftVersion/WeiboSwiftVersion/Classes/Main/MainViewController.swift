@@ -97,6 +97,16 @@ class MainViewController: UITabBarController
         addChildViewController(nav)
     }
     
+    //注：监听按钮点击的方法不能为私有方法
+    //因为按钮点击事件的调用是由运行循环监听并且以消息机制传递的
+    func clickedOnComposeBtn()
+    {
+        let composeVC = ComposeViewController()
+        let nav = UINavigationController(rootViewController: composeVC)
+        
+        presentViewController(nav, animated: true, completion: nil)
+    }
+    
     //MARK: -懒加载
     private lazy var composeBtn: UIButton = {
         let btn = UIButton()
@@ -115,11 +125,4 @@ class MainViewController: UITabBarController
         
         return btn
     }()
-    
-    //注：监听按钮点击的方法不能为私有方法
-    //因为按钮点击事件的调用是由运行循环监听并且以消息机制传递的
-    func clickedOnComposeBtn()
-    {
-        print(__FUNCTION__)
-    }
 }

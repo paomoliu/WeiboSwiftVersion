@@ -50,6 +50,7 @@
 		65AF9CBB1D74733D0047F404 /* StatusTableViewBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF9CBA1D74733D0047F404 /* StatusTableViewBottomView.swift */; };
 		65AF9CBD1D7473EF0047F404 /* StatusTableViewTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF9CBC1D7473EF0047F404 /* StatusTableViewTopView.swift */; };
 		65AF9CBF1D7477A50047F404 /* StatusPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF9CBE1D7477A50047F404 /* StatusPictureView.swift */; };
+		65F0DA711D77FB2D00015048 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0DA701D77FB2D00015048 /* ComposeViewController.swift */; };
 		65F0FACD1D698AE50026835A /* UIBarButtonItem+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0FACC1D698AE50026835A /* UIBarButtonItem+Category.swift */; };
 		65F0FACF1D698E800026835A /* TitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0FACE1D698E800026835A /* TitleButton.swift */; };
 		945BBBDE522B37AC6BA55704 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A49FD52E44BFC232266DE4C /* Pods.framework */; };
@@ -124,6 +125,7 @@
 		65AF9CBA1D74733D0047F404 /* StatusTableViewBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTableViewBottomView.swift; sourceTree = "<group>"; };
 		65AF9CBC1D7473EF0047F404 /* StatusTableViewTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTableViewTopView.swift; sourceTree = "<group>"; };
 		65AF9CBE1D7477A50047F404 /* StatusPictureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusPictureView.swift; sourceTree = "<group>"; };
+		65F0DA701D77FB2D00015048 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		65F0FACC1D698AE50026835A /* UIBarButtonItem+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Category.swift"; sourceTree = "<group>"; };
 		65F0FACE1D698E800026835A /* TitleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleButton.swift; sourceTree = "<group>"; };
 		7F887877925AF440A095D467 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				65A834241D6842FB00F83BBF /* Category */,
 				65A834251D6842FB00F83BBF /* Common */,
 				65A834261D6842FB00F83BBF /* Discover */,
+				65F0DA6F1D77FAFD00015048 /* Compose */,
 				65A834271D6842FB00F83BBF /* Home */,
 				65A834281D6842FB00F83BBF /* Main */,
 				65A834291D6842FB00F83BBF /* Message */,
@@ -373,6 +376,14 @@
 				65A834381D684E1200F83BBF /* NullViewController.swift */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		65F0DA6F1D77FAFD00015048 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				65F0DA701D77FB2D00015048 /* ComposeViewController.swift */,
+			);
+			path = Compose;
 			sourceTree = "<group>";
 		};
 		6A6836BA2E9DD5B153D6F76A /* Frameworks */ = {
@@ -588,6 +599,7 @@
 				6577559C1D69547500116E30 /* BaseTableViewController.swift in Sources */,
 				65A463921D76B1C500E3BCD8 /* PhotoBrowseCell.swift in Sources */,
 				658A3BCE1D6C427600342B96 /* QRCodeCardViewController.swift in Sources */,
+				65F0DA711D77FB2D00015048 /* ComposeViewController.swift in Sources */,
 				6573AB001D72C627005C5657 /* UILabel+Category.swift in Sources */,
 				651E7D9C1D7585080034ACD1 /* HomeRefreshControl.swift in Sources */,
 				658810CD1D7535850052267A /* StatusRetweetTableViewCell.swift in Sources */,
