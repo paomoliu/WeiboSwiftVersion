@@ -27,6 +27,11 @@
 		658810CD1D7535850052267A /* StatusRetweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658810CC1D7535850052267A /* StatusRetweetTableViewCell.swift */; };
 		658810CF1D75522C0052267A /* StatusNormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658810CE1D75522C0052267A /* StatusNormalTableViewCell.swift */; };
 		658A3BCE1D6C427600342B96 /* QRCodeCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658A3BCD1D6C427600342B96 /* QRCodeCardViewController.swift */; };
+		6595C8631D7A6E6B00CEBD18 /* EmoticonPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C85E1D7A6E6B00CEBD18 /* EmoticonPackage.swift */; };
+		6595C8641D7A6E6B00CEBD18 /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6595C85F1D7A6E6B00CEBD18 /* Emoticons.bundle */; };
+		6595C8651D7A6E6B00CEBD18 /* EmoticonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8601D7A6E6B00CEBD18 /* EmoticonsViewController.swift */; };
+		6595C8661D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8611D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift */; };
+		6595C8671D7A6E6B00CEBD18 /* UITextView+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8621D7A6E6B00CEBD18 /* UITextView+Category.swift */; };
 		65A2C81E1D701EF8008C0F47 /* NewFeatrueCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2C81D1D701EF8008C0F47 /* NewFeatrueCollectionViewController.swift */; };
 		65A2C8201D703BB2008C0F47 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2C81F1D703BB2008C0F47 /* WelcomeViewController.swift */; };
 		65A315971D6EC7E70040820C /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A315961D6EC7E70040820C /* NetworkTools.swift */; };
@@ -96,6 +101,11 @@
 		658810CC1D7535850052267A /* StatusRetweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusRetweetTableViewCell.swift; sourceTree = "<group>"; };
 		658810CE1D75522C0052267A /* StatusNormalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusNormalTableViewCell.swift; sourceTree = "<group>"; };
 		658A3BCD1D6C427600342B96 /* QRCodeCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeCardViewController.swift; sourceTree = "<group>"; };
+		6595C85E1D7A6E6B00CEBD18 /* EmoticonPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonPackage.swift; sourceTree = "<group>"; };
+		6595C85F1D7A6E6B00CEBD18 /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
+		6595C8601D7A6E6B00CEBD18 /* EmoticonsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonsViewController.swift; sourceTree = "<group>"; };
+		6595C8611D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonTextAttachment.swift; sourceTree = "<group>"; };
+		6595C8621D7A6E6B00CEBD18 /* UITextView+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Category.swift"; sourceTree = "<group>"; };
 		65A2C81D1D701EF8008C0F47 /* NewFeatrueCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeatrueCollectionViewController.swift; sourceTree = "<group>"; };
 		65A2C81F1D703BB2008C0F47 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		65A315961D6EC7E70040820C /* NetworkTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
@@ -194,6 +204,18 @@
 				65A315981D6ED4C20040820C /* UserAccount.swift */,
 			);
 			path = OAuth;
+			sourceTree = "<group>";
+		};
+		6595C85D1D7A6E6B00CEBD18 /* EmoticonView */ = {
+			isa = PBXGroup;
+			children = (
+				6595C85E1D7A6E6B00CEBD18 /* EmoticonPackage.swift */,
+				6595C85F1D7A6E6B00CEBD18 /* Emoticons.bundle */,
+				6595C8601D7A6E6B00CEBD18 /* EmoticonsViewController.swift */,
+				6595C8611D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift */,
+				6595C8621D7A6E6B00CEBD18 /* UITextView+Category.swift */,
+			);
+			path = EmoticonView;
 			sourceTree = "<group>";
 		};
 		65A2C81C1D701EDB008C0F47 /* NewFeatrue */ = {
@@ -381,6 +403,7 @@
 		65F0DA6F1D77FAFD00015048 /* Compose */ = {
 			isa = PBXGroup;
 			children = (
+				6595C85D1D7A6E6B00CEBD18 /* EmoticonView */,
 				65F0DA701D77FB2D00015048 /* ComposeViewController.swift */,
 			);
 			path = Compose;
@@ -505,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65A834391D684E1200F83BBF /* MainVCSettings.json in Resources */,
+				6595C8641D7A6E6B00CEBD18 /* Emoticons.bundle in Resources */,
 				656AC1201D6AEAB200637308 /* Popover.storyboard in Resources */,
 				651E7D9A1D75828F0034ACD1 /* HomeRefreshView.xib in Resources */,
 				656AC12B1D6B3BAC00637308 /* QRCode.storyboard in Resources */,
@@ -583,6 +607,7 @@
 			files = (
 				65A2C81E1D701EF8008C0F47 /* NewFeatrueCollectionViewController.swift in Sources */,
 				656AC1221D6AF01C00637308 /* PopoverPresentationController.swift in Sources */,
+				6595C8631D7A6E6B00CEBD18 /* EmoticonPackage.swift in Sources */,
 				65A834351D68446400F83BBF /* ProfileTableViewController.swift in Sources */,
 				6573AAFC1D729751005C5657 /* User.swift in Sources */,
 				658810CF1D75522C0052267A /* StatusNormalTableViewCell.swift in Sources */,
@@ -595,13 +620,16 @@
 				65A8342F1D68443200F83BBF /* HomeTableViewController.swift in Sources */,
 				6573AAFE1D72A571005C5657 /* StatusTableViewCell.swift in Sources */,
 				65A315971D6EC7E70040820C /* NetworkTools.swift in Sources */,
+				6595C8661D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift in Sources */,
 				65AF9CBF1D7477A50047F404 /* StatusPictureView.swift in Sources */,
 				6577559C1D69547500116E30 /* BaseTableViewController.swift in Sources */,
+				6595C8671D7A6E6B00CEBD18 /* UITextView+Category.swift in Sources */,
 				65A463921D76B1C500E3BCD8 /* PhotoBrowseCell.swift in Sources */,
 				658A3BCE1D6C427600342B96 /* QRCodeCardViewController.swift in Sources */,
 				65F0DA711D77FB2D00015048 /* ComposeViewController.swift in Sources */,
 				6573AB001D72C627005C5657 /* UILabel+Category.swift in Sources */,
 				651E7D9C1D7585080034ACD1 /* HomeRefreshControl.swift in Sources */,
+				6595C8651D7A6E6B00CEBD18 /* EmoticonsViewController.swift in Sources */,
 				658810CD1D7535850052267A /* StatusRetweetTableViewCell.swift in Sources */,
 				6573AAFA1D727F4A005C5657 /* Status.swift in Sources */,
 				65A463901D76B06700E3BCD8 /* UIColor+Category.swift in Sources */,

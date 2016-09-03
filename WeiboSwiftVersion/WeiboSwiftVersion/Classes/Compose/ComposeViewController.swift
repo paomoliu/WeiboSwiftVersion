@@ -22,6 +22,9 @@ class ComposeViewController: UIViewController
         //监听键盘改变
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "changeKeyboardFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
         
+        //1将键盘控制器添加为当前控制器子控制器
+        addChildViewController(emoticonVC)
+        
         //初始化导航条
         setupNav()
         
@@ -48,7 +51,7 @@ class ComposeViewController: UIViewController
     
     func changeKeyboardFrame(notify: NSNotification)
     {
-        print(notify)
+//        print(notify)
         // 取出键盘最终的rect
         let value = notify.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue
         
@@ -62,9 +65,65 @@ class ComposeViewController: UIViewController
         
         //更新界面
         let duration = notify.userInfo![UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
+        /*
+          工具条回弹是因为执行了两次动画，而系统自带的键盘动画节奏（曲线）是7
+          7 在apple API中并没有提供给我们, 但是我们可以使用
+          7这种节奏有一个特点: 如果连续执行两次动画, 不管上一次有没有执行完毕, 都会立刻执行下一次
+          也就是说上一次可能会被忽略
+        
+          如果将动画节奏设置为7, 那么动画的时长无论如何都会自动修改为0.5
+          UIView动画的本质是核心动画, 所以可以给核心动画设置动画节奏
+        */
+        // 1.取出键盘的动画节奏
+        let curve = notify.userInfo![UIKeyboardAnimationCurveUserInfoKey]!.integerValue
         UIView.animateWithDuration(duration) { () -> Void in
+            // 2.设置动画节奏
+            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
+            print(duration)
+            
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func clickedCloseBtn()
+    {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func sendStatus()
+    {
+        let path = "2/statuses/update.json"
+        let params = ["access_token": UserAccount.readAccount()!.access_token!, "status": textView.emoticonAttributedText()]
+        NetworkTools.shareNetworkTools().POST(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
+            SVProgressHUD.showSuccessWithStatus("发送成功")
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+            self.clickedCloseBtn()
+            }) { (_, error) -> Void in
+                SVProgressHUD.showErrorWithStatus("发送失败")
+                SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+        }
+    }
+    
+    func selectPicture()
+    {
+        print(__FUNCTION__)
+    }
+    
+    func switchEmoticon()
+    {
+        print(__FUNCTION__)
+        // 结论: 如果是系统自带的键盘, 那么inputView = nil
+        //      如果不是系统自带的键盘, 那么inputView != nil
+//        print(textView.inputView)
+        
+        //关闭键盘
+        textView.resignFirstResponder()
+        
+        //切换键盘
+        textView.inputView = (textView.inputView == nil) ? emoticonVC.view : nil
+        
+        //召唤键盘
+        textView.becomeFirstResponder()
     }
     
     private func setupNav()
@@ -109,7 +168,7 @@ class ComposeViewController: UIViewController
         textView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
         
         textView.xmg_Fill(view)
-        placeholderLabel.xmg_AlignInner(type: XMG_AlignType.TopLeft, referView: textView, size: nil, offset: CGPoint(x: 5, y: 6))
+        placeholderLabel.xmg_AlignInner(type: XMG_AlignType.TopLeft, referView: textView, size: nil, offset: CGPoint(x: 5, y: 8))
     }
     
     private func setupToolBar()
@@ -125,7 +184,7 @@ class ComposeViewController: UIViewController
             
             ["imageName": "compose_trendbutton_background"],
             
-            ["imageName": "compose_emoticonbutton_background", "action": "inputEmoticon"],
+            ["imageName": "compose_emoticonbutton_background", "action": "switchEmoticon"],
             
             ["imageName": "compose_addbutton_background"]]
         for dict in itemSettings
@@ -143,36 +202,18 @@ class ComposeViewController: UIViewController
         toolBarBottomCons = toolBar.xmg_Constraint(cons, attribute: NSLayoutAttribute.Bottom)
     }
     
-    func clickedCloseBtn()
-    {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func sendStatus()
-    {
-        let path = "2/statuses/update.json"
-        let params = ["access_token": UserAccount.readAccount()?.access_token, "status": textView.text]
-        NetworkTools.shareNetworkTools().POST(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
-            SVProgressHUD.showSuccessWithStatus("发送成功")
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
-            self.clickedCloseBtn()
-            }) { (_, error) -> Void in
-            SVProgressHUD.showErrorWithStatus("发送失败")
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
-        }
-    }
-    
     //MARK: - 懒加载
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.delegate = self
+        textView.font = UIFont.systemFontOfSize(15)
         
         return textView
     }()
     
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFontOfSize(13)
+        label.font = UIFont.systemFontOfSize(15)
         label.textColor = UIColor.darkGrayColor()
         label.text = "分享新鲜事..."
         
@@ -180,10 +221,17 @@ class ComposeViewController: UIViewController
     }()
     
     private lazy var toolBar: UIToolbar = UIToolbar()
+    
+    //weak：相当于OC中__weak，特点对象释放之后会将变量设置为nil, 设用它self需要加！
+    //unowned：相当于OC中unsafe_unretained，特点对象释放之后不会将变量设置为nil
+    private lazy var emoticonVC: EmoticonsViewController = EmoticonsViewController { [unowned self] (emoticon) -> () in
+        self.textView.insertEmoticon(emoticon)
+    }
 }
 
 extension ComposeViewController: UITextViewDelegate
 {
+    //注意：输入图片表情时不会触发textViewDidChange
     func textViewDidChange(textView: UITextView) {
         placeholderLabel.hidden = textView.hasText()
         navigationItem.rightBarButtonItem?.enabled = textView.hasText()
