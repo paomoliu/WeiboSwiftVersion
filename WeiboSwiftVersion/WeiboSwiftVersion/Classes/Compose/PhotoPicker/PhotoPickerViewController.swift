@@ -12,7 +12,6 @@ private let kPhotoPickerCellReuseIdentifier = "kPhotoPickerCellReuseIdentifier"
 
 class PhotoPickerViewController: UIViewController
 {
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -41,7 +40,7 @@ class PhotoPickerViewController: UIViewController
         return collectionView
     }()
     
-    private lazy var photoImages: [UIImage] = [UIImage]()
+    lazy var photoImages: [UIImage] = [UIImage]()
 }
 
 extension PhotoPickerViewController: UICollectionViewDataSource, PhotoPickerCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate

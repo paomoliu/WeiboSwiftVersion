@@ -30,8 +30,8 @@ class StatusPictureView: UICollectionView
         delegate = self
         
         //3.设置cell间间隙
-        pictureViewLayout.minimumInteritemSpacing = 10
-        pictureViewLayout.minimumLineSpacing = 10
+        pictureViewLayout.minimumInteritemSpacing = 5
+        pictureViewLayout.minimumLineSpacing = 5
         
         backgroundColor = UIColor.darkGrayColor()
     }
@@ -63,8 +63,8 @@ class StatusPictureView: UICollectionView
         }
         
         //4.如果四张配图，计算田字格的大小
-        let width = 90
-        let margin = 10
+        let width = Int((UIScreen.mainScreen().bounds.width - 10 * 2 - 5 * 2) / 3)
+        let margin = 5
         pictureViewLayout.itemSize = CGSize(width: width, height: width)
         if count == 4
         {

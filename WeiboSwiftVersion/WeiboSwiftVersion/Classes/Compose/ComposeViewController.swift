@@ -99,15 +99,43 @@ class ComposeViewController: UIViewController
     
     func sendStatus()
     {
-        let path = "2/statuses/update.json"
-        let params = ["access_token": UserAccount.readAccount()!.access_token!, "status": textView.emoticonAttributedText()]
-        NetworkTools.shareNetworkTools().POST(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
-            SVProgressHUD.showSuccessWithStatus("发送成功")
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
-            self.clickedCloseBtn()
-            }) { (_, error) -> Void in
-                SVProgressHUD.showErrorWithStatus("发送失败")
-                SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+        if let image = photoPickerVC.photoImages.first
+        {
+            let path = "2/statuses/upload.json"
+            let params = ["access_token": UserAccount.readAccount()!.access_token!, "status": textView.emoticonAttributedText()]
+            NetworkTools.shareNetworkTools().POST(path, parameters: params, constructingBodyWithBlock: { (formData) -> Void in
+                    // 1.将数据转换为二进制
+                    let imageData = UIImagePNGRepresentation(image)
+                
+                    // 2.上传数据
+                    /*
+                    第一个参数: 需要上传的二进制数据
+                    第二个参数: 服务端对应的字段名称
+                    第三个参数: 文件的名称(在大部分服务器上可以随便写)
+                    第四个参数: 数据类型, 通用类型application/octet-stream
+                    */
+                    formData.appendPartWithFileData(imageData!, name: "pic",fileName: "image.png", mimeType: "application/octet-stream")
+                }, success: { (_, JSON) -> Void in
+                    SVProgressHUD.showSuccessWithStatus("发送成功")
+                    SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+                    self.clickedCloseBtn()
+                }, failure: { (_, error) -> Void in
+                    SVProgressHUD.showErrorWithStatus("发送失败")
+                    SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+            })
+        } else
+        {
+            let path = "2/statuses/update.json"
+            let params = ["access_token": UserAccount.readAccount()!.access_token!, "status": textView.emoticonAttributedText()]
+            NetworkTools.shareNetworkTools().POST(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
+                    SVProgressHUD.showSuccessWithStatus("发送成功")
+                    SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+                    self.clickedCloseBtn()
+                }) { (_, error) -> Void in
+                    SVProgressHUD.showErrorWithStatus("发送失败")
+                    SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+                    
+            }
         }
     }
     
