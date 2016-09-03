@@ -13,6 +13,7 @@ class ComposeViewController: UIViewController
 {
     //工具条底部约束
     var toolBarBottomCons: NSLayoutConstraint?
+    var photoPickerHeightCons: NSLayoutConstraint?
     
     override func viewDidLoad()
     {
@@ -22,8 +23,9 @@ class ComposeViewController: UIViewController
         //监听键盘改变
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "changeKeyboardFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
         
-        //1将键盘控制器添加为当前控制器子控制器
+        //1将键盘、图片选择器控制器添加为当前控制器子控制器
         addChildViewController(emoticonVC)
+        addChildViewController(photoPickerVC)
         
         //初始化导航条
         setupNav()
@@ -33,13 +35,18 @@ class ComposeViewController: UIViewController
         
         //初始化工具条
         setupToolBar()
+        
+        setupPhotoPicker()
     }
     
-    override  func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override  func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-        //主动显示键盘
-        textView.becomeFirstResponder()
+        if photoPickerHeightCons == 0
+        {
+            //主动显示键盘
+            textView.becomeFirstResponder()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -107,6 +114,11 @@ class ComposeViewController: UIViewController
     func selectPicture()
     {
         print(__FUNCTION__)
+        //关闭键盘
+        textView.resignFirstResponder()
+        
+        //更改图片选择器高度约束
+        photoPickerHeightCons?.constant = UIScreen.mainScreen().bounds.height * CGFloat(0.6)
     }
     
     func switchEmoticon()
@@ -202,6 +214,15 @@ class ComposeViewController: UIViewController
         toolBarBottomCons = toolBar.xmg_Constraint(cons, attribute: NSLayoutAttribute.Bottom)
     }
     
+    private func setupPhotoPicker()
+    {
+        view.insertSubview(photoPickerVC.view, belowSubview: toolBar)
+        
+        let width = UIScreen.mainScreen().bounds.width
+        let cons = photoPickerVC.view.xmg_AlignInner(type: XMG_AlignType.BottomLeft, referView: view, size: CGSize(width: width, height: 0))
+        photoPickerHeightCons = photoPickerVC.view.xmg_Constraint(cons, attribute: NSLayoutAttribute.Height)
+    }
+    
     //MARK: - 懒加载
     private lazy var textView: UITextView = {
         let textView = UITextView()
@@ -224,9 +245,13 @@ class ComposeViewController: UIViewController
     
     //weak：相当于OC中__weak，特点对象释放之后会将变量设置为nil, 设用它self需要加！
     //unowned：相当于OC中unsafe_unretained，特点对象释放之后不会将变量设置为nil
+    /// 表情键盘
     private lazy var emoticonVC: EmoticonsViewController = EmoticonsViewController { [unowned self] (emoticon) -> () in
         self.textView.insertEmoticon(emoticon)
     }
+    
+    /// 图片选择器
+    private lazy var photoPickerVC: PhotoPickerViewController = PhotoPickerViewController()
 }
 
 extension ComposeViewController: UITextViewDelegate

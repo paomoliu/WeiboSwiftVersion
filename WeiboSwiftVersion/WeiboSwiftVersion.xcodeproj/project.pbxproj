@@ -32,6 +32,8 @@
 		6595C8651D7A6E6B00CEBD18 /* EmoticonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8601D7A6E6B00CEBD18 /* EmoticonsViewController.swift */; };
 		6595C8661D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8611D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift */; };
 		6595C8671D7A6E6B00CEBD18 /* UITextView+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8621D7A6E6B00CEBD18 /* UITextView+Category.swift */; };
+		6595C8A71D7B04DA00CEBD18 /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8A51D7B04DA00CEBD18 /* PhotoPickerViewController.swift */; };
+		6595C8A81D7B04DA00CEBD18 /* UIImage+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595C8A61D7B04DA00CEBD18 /* UIImage+Category.swift */; };
 		65A2C81E1D701EF8008C0F47 /* NewFeatrueCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2C81D1D701EF8008C0F47 /* NewFeatrueCollectionViewController.swift */; };
 		65A2C8201D703BB2008C0F47 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2C81F1D703BB2008C0F47 /* WelcomeViewController.swift */; };
 		65A315971D6EC7E70040820C /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A315961D6EC7E70040820C /* NetworkTools.swift */; };
@@ -106,6 +108,8 @@
 		6595C8601D7A6E6B00CEBD18 /* EmoticonsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonsViewController.swift; sourceTree = "<group>"; };
 		6595C8611D7A6E6B00CEBD18 /* EmoticonTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonTextAttachment.swift; sourceTree = "<group>"; };
 		6595C8621D7A6E6B00CEBD18 /* UITextView+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Category.swift"; sourceTree = "<group>"; };
+		6595C8A51D7B04DA00CEBD18 /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
+		6595C8A61D7B04DA00CEBD18 /* UIImage+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Category.swift"; sourceTree = "<group>"; };
 		65A2C81D1D701EF8008C0F47 /* NewFeatrueCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeatrueCollectionViewController.swift; sourceTree = "<group>"; };
 		65A2C81F1D703BB2008C0F47 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		65A315961D6EC7E70040820C /* NetworkTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
@@ -216,6 +220,15 @@
 				6595C8621D7A6E6B00CEBD18 /* UITextView+Category.swift */,
 			);
 			path = EmoticonView;
+			sourceTree = "<group>";
+		};
+		6595C8A41D7B04DA00CEBD18 /* PhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				6595C8A51D7B04DA00CEBD18 /* PhotoPickerViewController.swift */,
+				6595C8A61D7B04DA00CEBD18 /* UIImage+Category.swift */,
+			);
+			path = PhotoPicker;
 			sourceTree = "<group>";
 		};
 		65A2C81C1D701EDB008C0F47 /* NewFeatrue */ = {
@@ -403,6 +416,7 @@
 		65F0DA6F1D77FAFD00015048 /* Compose */ = {
 			isa = PBXGroup;
 			children = (
+				6595C8A41D7B04DA00CEBD18 /* PhotoPicker */,
 				6595C85D1D7A6E6B00CEBD18 /* EmoticonView */,
 				65F0DA701D77FB2D00015048 /* ComposeViewController.swift */,
 			);
@@ -641,11 +655,13 @@
 				657755A01D69660D00116E30 /* UIView+AutoLayout.swift in Sources */,
 				65A834311D68444200F83BBF /* DiscoverTableViewController.swift in Sources */,
 				6573AB021D72C63C005C5657 /* UIButton+Category.swift in Sources */,
+				6595C8A81D7B04DA00CEBD18 /* UIImage+Category.swift in Sources */,
 				6577559E1D6959BC00116E30 /* VisitorView.swift in Sources */,
 				656AC1281D6B064E00637308 /* PopoverAnimation.swift in Sources */,
 				65AF9CBB1D74733D0047F404 /* StatusTableViewBottomView.swift in Sources */,
 				65A8342D1D68432500F83BBF /* MainViewController.swift in Sources */,
 				65A3159B1D6EE1D60040820C /* String+Category.swift in Sources */,
+				6595C8A71D7B04DA00CEBD18 /* PhotoPickerViewController.swift in Sources */,
 				65F0FACF1D698E800026835A /* TitleButton.swift in Sources */,
 				65A8343A1D684E1200F83BBF /* NullViewController.swift in Sources */,
 			);

@@ -128,7 +128,12 @@ class StatusPictureView: UICollectionView
         }
         
         //MARK: - 懒加载
-        private lazy var pictureView: UIImageView = UIImageView()
+        private lazy var pictureView: UIImageView = {
+            let imageView = UIImageView()
+//            imageView.contentMode = UIViewContentMode.ScaleAspectFill
+            
+            return imageView
+        }()
         private lazy var gifView: UIImageView = {
             let gifView = UIImageView(image: UIImage(named: "timeline_image_gif"))
             gifView.hidden = true
