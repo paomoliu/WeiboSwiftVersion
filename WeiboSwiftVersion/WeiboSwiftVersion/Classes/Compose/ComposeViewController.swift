@@ -185,6 +185,7 @@ class ComposeViewController: UIViewController
     {
         //添加子控件
         view.addSubview(toolBar)
+        view.addSubview(tipLabel)
         
         //添加按钮
         var items = [UIBarButtonItem]()
@@ -210,6 +211,7 @@ class ComposeViewController: UIViewController
         let width = UIScreen.mainScreen().bounds.width
         let cons = toolBar.xmg_AlignInner(type: XMG_AlignType.BottomLeft, referView: view, size: CGSize(width: width, height: 44))
         toolBarBottomCons = toolBar.xmg_Constraint(cons, attribute: NSLayoutAttribute.Bottom)
+        tipLabel.xmg_AlignVertical(type: XMG_AlignType.TopRight, referView: toolBar, size: nil, offset: CGPoint(x: -10, y: -10))
     }
     
     private func setupPhotoPicker()
@@ -241,6 +243,8 @@ class ComposeViewController: UIViewController
     
     private lazy var toolBar: UIToolbar = UIToolbar()
     
+    private lazy var tipLabel: UILabel = UILabel()
+    
     //weak：相当于OC中__weak，特点对象释放之后会将变量设置为nil, 设用它self需要加！
     //unowned：相当于OC中unsafe_unretained，特点对象释放之后不会将变量设置为nil
     /// 表情键盘
@@ -252,11 +256,16 @@ class ComposeViewController: UIViewController
     private lazy var photoPickerVC: PhotoPickerViewController = PhotoPickerViewController()
 }
 
+private let maxTextLength = 140
 extension ComposeViewController: UITextViewDelegate
 {
     //注意：输入图片表情时不会触发textViewDidChange
     func textViewDidChange(textView: UITextView) {
         placeholderLabel.hidden = textView.hasText()
         navigationItem.rightBarButtonItem?.enabled = textView.hasText()
+        
+        let res = maxTextLength - textView.emoticonAttributedText().characters.count
+        tipLabel.textColor = (res >= 0) ? UIColor.darkGrayColor() : UIColor.redColor()
+        tipLabel.text = (res > 10) ? "" : "\(res)"
     }
 }
