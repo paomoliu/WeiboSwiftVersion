@@ -13,8 +13,6 @@ class Status: NSObject{
     /// 微博创建时间
     var created_at: String? {
         didSet {
-//            print("---------\(created_at)")
-            
             //1.将字符串转换为时间
             let createDate = NSDate.dateWithStr(created_at!)
             //2.获取格式化之后的时间字符串
@@ -242,7 +240,6 @@ class Status: NSObject{
         }
         
         super.setValue(value, forKey: key)
-//        print("key = \(key), value = \(value)")
     }
     
     //使用该方法是因为dict中有很多key是用不到，为了保证匹配dict时不出错

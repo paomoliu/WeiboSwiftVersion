@@ -132,7 +132,6 @@ class HomeTableViewController: BaseTableViewController {
     
     func rightBtnClicked()
     {
-        print(__FUNCTION__)
         let storyboard = UIStoryboard(name: "QRCode", bundle: nil)
         let vc = storyboard.instantiateInitialViewController()
         presentViewController(vc!, animated: true, completion: nil)

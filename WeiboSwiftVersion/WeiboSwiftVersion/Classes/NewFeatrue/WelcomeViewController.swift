@@ -31,9 +31,9 @@ class WelcomeViewController: UIViewController {
         
         //修改头像约束
         avatarBottomCons?.constant = -UIScreen.mainScreen().bounds.height - avatarBottomCons!.constant
-        print(-UIScreen.mainScreen().bounds.height)
-        print(avatarBottomCons!.constant)
-        print(-UIScreen.mainScreen().bounds.height - avatarBottomCons!.constant)
+//        print(-UIScreen.mainScreen().bounds.height)
+//        print(avatarBottomCons!.constant)
+//        print(-UIScreen.mainScreen().bounds.height - avatarBottomCons!.constant)
         
         //执行动画
         UIView.animateWithDuration(1.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10, options: UIViewAnimationOptions(rawValue: 0), animations: { () -> Void in

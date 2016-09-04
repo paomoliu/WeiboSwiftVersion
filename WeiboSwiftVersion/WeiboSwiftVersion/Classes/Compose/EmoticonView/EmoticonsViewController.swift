@@ -47,7 +47,6 @@ class EmoticonsViewController: UIViewController {
     
     func clickedToolBarBtn(item: UIBarButtonItem)
     {
-        print(item.tag)
         collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: item.tag), atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
     }
     

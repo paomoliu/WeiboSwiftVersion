@@ -63,7 +63,7 @@ extension OAuthViewController: UIWebViewDelegate
         //跳转到授权界面：https://api.weibo.com/oauth2/authorize
         //授权成功：http://www.520it.com/?code=xxxxxxxxxxxx
         //取消授权：http://www.520it.com/?error_url=xxxxxxxxxx
-        print(request.URL?.absoluteString)
+//        print(request.URL?.absoluteString)
         
         //1.判断是否是授权回调页面，如果不是就继续加载
         if !request.URL!.absoluteString.hasPrefix(WB_REDIRECT_URI)

@@ -98,8 +98,6 @@ class EmoticonPackage: NSObject
      */
     func appendEmptyEmoticon()
     {
-        print(emoticons?.count)
-        
         let count = emoticons!.count % 21
         
         for _ in count..<20

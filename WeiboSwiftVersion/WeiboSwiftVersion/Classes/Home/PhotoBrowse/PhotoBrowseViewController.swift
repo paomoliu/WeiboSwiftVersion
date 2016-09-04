@@ -63,7 +63,6 @@ class PhotoBrowseViewController: UIViewController
     
     func save()
     {
-        print(__FUNCTION__)
         //1.拿到当前正在显示的cell
         let indexPath = collectionView.indexPathsForVisibleItems().last!
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoBrowseCell

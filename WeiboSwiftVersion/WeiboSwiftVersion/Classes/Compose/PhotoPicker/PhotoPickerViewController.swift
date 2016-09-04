@@ -61,7 +61,6 @@ extension PhotoPickerViewController: UICollectionViewDataSource, PhotoPickerCell
     
     func photoDidAdded(cell: PhotoPickerViewCell)
     {
-//        print(__FUNCTION__)
         /*
         case PhotoLibrary     照片库(所有的照片，拍照&用 iTunes & iPhoto `同步`的照片 - 不能删除)
         case SavedPhotosAlbum 相册 (自己拍照保存的, 可以随便删除)

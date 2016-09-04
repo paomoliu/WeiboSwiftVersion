@@ -65,7 +65,6 @@ class PopoverPresentationController: UIPresentationController {
     
     func close()
     {
-        print(__FUNCTION__)
         presentedViewController.dismissViewControllerAnimated(true, completion: nil)
     }
 }

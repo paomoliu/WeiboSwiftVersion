@@ -32,9 +32,7 @@ class BaseTableViewController: UITableViewController, VisitorViewDelegate
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登录", style: UIBarButtonItemStyle.Plain, target: self, action: "loginBtnClicked")
     }
     
-    func loginBtnClicked() {
-        print(__FUNCTION__)
-        
+    func loginBtnClicked() {        
         //1.弹出登录界面
         let oauthVC = OAuthViewController()
         let nav = UINavigationController(rootViewController: oauthVC)

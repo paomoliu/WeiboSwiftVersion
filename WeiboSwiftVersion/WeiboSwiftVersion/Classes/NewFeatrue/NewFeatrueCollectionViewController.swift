@@ -99,7 +99,6 @@ class NewFeatrueCell: UICollectionViewCell
     
     func startBtnClicked()
     {
-        print(__FUNCTION__)
         //去主页，注意点：在企业开发中，如果要切换根控制器，最好都在Appdelegate.m中切换
         NSNotificationCenter.defaultCenter().postNotificationName(SwithRootViewControllerKey, object: true)
     }
