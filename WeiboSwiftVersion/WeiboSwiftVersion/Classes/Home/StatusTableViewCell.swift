@@ -43,7 +43,8 @@ class StatusTableViewCell: UITableViewCell {
             //设置顶部视图模型
             topView.status = status
             //设置正文
-            contentLabel.text = status?.text
+//            contentLabel.text = status?.text
+            contentLabel.attributedText = EmoticonPackage.attributedTextWithText(status?.text ?? "")
             //设置配图模型
             pictureView.status = status?.retweeted_status != nil ? status?.retweeted_status : status 
             

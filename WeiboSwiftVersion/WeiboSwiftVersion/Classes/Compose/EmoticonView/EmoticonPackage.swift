@@ -144,6 +144,78 @@ class EmoticonPackage: NSObject
     }
     
     /**
+     根据字符串生成属性字符串
+     
+     - parameter str: 字符串
+     
+     - returns: 属性字符串
+     */
+    class func attributedTextWithText(str: String) -> NSMutableAttributedString
+    {
+        let attributedStr = NSMutableAttributedString(string: str)
+        
+        do
+        {
+            // 1.创建规则
+            let pattern = "\\[.*?\\]"
+            // 2.创建正则表达式对象
+            let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+            // 3.开始匹配
+            let res = regex.matchesInString(str, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, str.characters.count))
+            
+            // 取出结果
+            var count = res.count
+            while count > 0
+            {
+                let result = res[--count]
+                // 拿到匹配到的表情字符串
+                let tempStr = (str as NSString).substringWithRange(result.range)
+                
+                // 根据表情字符串查找对应的表情模型
+                if let emoticon = emoticonWithStr(tempStr)
+                {
+                    // 根据表情模型生成属性字符串
+                    let emoticonStr = EmoticonTextAttachment.imageText(emoticon, font: UIFont.systemFontOfSize(17))
+                    
+                    // 替换属性字符串
+                    attributedStr.replaceCharactersInRange(result.range, withAttributedString: emoticonStr)
+                }
+            }
+            
+            return attributedStr
+        } catch
+        {
+            print(error)
+            return attributedStr
+        }
+    }
+    
+    /**
+     根据表情字符串找到对应的表情模型
+     
+     - parameter str: 表情字符串
+     
+     - returns: 表情模型
+     */
+    class func emoticonWithStr(str: String) -> Emoticon?
+    {
+        var emoticon: Emoticon?
+        for package in EmoticonPackage.packageList
+        {
+            emoticon = package.emoticons?.filter({ (element) -> Bool in
+                return element.chs == str
+            }).last
+            
+            if emoticon != nil
+            {
+                break
+            }
+        }
+        
+        return emoticon
+    }
+    
+    /**
      获取微博表情的主路径
      */
     class func emoticonPath() -> NSString

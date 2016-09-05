@@ -17,7 +17,8 @@ class StatusRetweetTableViewCell: StatusTableViewCell
         didSet {
             let name = status?.retweeted_status?.user?.name ?? ""
             let text = status?.retweeted_status?.text ?? ""
-            retweetContentLabel.text = "@" + name + ": " + text
+//            retweetContentLabel.text = "@" + name + ": " + text
+            retweetContentLabel.attributedText = EmoticonPackage.attributedTextWithText("@" + name + ": " + text)
         }
     }
     
