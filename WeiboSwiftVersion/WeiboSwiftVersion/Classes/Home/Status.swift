@@ -137,6 +137,8 @@ class Status: NSObject{
         
         NetworkTools.shareNetworkTools().GET(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
 //            print(JSON)
+            StatusDAO.cacheStatused(JSON!["statuses"] as! [[String: AnyObject]])
+            
             //1. 取出statuses key对应的数组（存储的都是字典），遍历数组，将字典转换为模型
             let models = dict2Model(JSON!["statuses"] as! [[String: AnyObject]])
 //            print(models)
