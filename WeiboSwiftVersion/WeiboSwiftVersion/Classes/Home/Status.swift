@@ -119,34 +119,16 @@ class Status: NSObject{
     }
     
     class func loadStatuses(since_id: Int, max_id: Int, finished: (models: [Status]?, error: NSError?)->()) {
-        let path = "2/statuses/home_timeline.json"
-        var params = ["access_token": UserAccount.readAccount()!.access_token!]
-        
-        //下拉刷新
-        if since_id > 0
-        {
-            params["since_id"] = "\(since_id)"
-        }
-        
-        //上拉加载更多
-        if max_id > 0
-        {
-            //传递max_id会使返回的数据包含max_id对应的微博数据，这样在拼接数据时就包含两条max_id对应的数据，所以这里需要－1
-            params["max_id"] = "\(max_id - 1)"
-        }
-        
-        NetworkTools.shareNetworkTools().GET(path, parameters: params, progress: nil, success: { (_, JSON) -> Void in
-//            print(JSON)
-            StatusDAO.cacheStatused(JSON!["statuses"] as! [[String: AnyObject]])
-            
-            //1. 取出statuses key对应的数组（存储的都是字典），遍历数组，将字典转换为模型
-            let models = dict2Model(JSON!["statuses"] as! [[String: AnyObject]])
-//            print(models)
-            //2.缓存微博配图
-            cacheStatusImages(models, finished: finished)
-            }) { (_, error) -> Void in
-//                print(error)
-                finished(models: nil, error: error)
+            StatusDAO.loadStatuses(since_id, max_id: max_id) { (statuses, error) -> () in
+                if statuses == nil || error != nil
+                {
+                    finished(models: nil, error: error)
+                }
+                
+                //1.遍历数组，将字典转换为模型
+                let models = dict2Model(statuses!)
+                //2.缓存微博配图
+                cacheStatusImages(models, finished: finished)
         }
     }
     
