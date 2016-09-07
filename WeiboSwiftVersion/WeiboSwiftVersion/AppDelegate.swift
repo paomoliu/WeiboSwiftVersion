@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //加载数据库
         SQLiteManager.shareManager().openDB("status.sqlite")
+        //清空过期数据
+        StatusDAO.cleanStatuses()
         
         //设置导航栏与工具条外观
         UINavigationBar.appearance().tintColor = UIColor.orangeColor()

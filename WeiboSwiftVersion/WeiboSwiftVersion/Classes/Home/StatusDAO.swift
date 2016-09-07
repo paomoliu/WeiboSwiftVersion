@@ -8,10 +8,38 @@
 
 import UIKit
 
+/// 数据访问层
 class StatusDAO: NSObject
 {
+    /**
+     清空过期的数据
+     */
+    class func cleanStatuses()
+    {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = NSLocale(localeIdentifier: "en")
+        
+        let date = NSDate(timeIntervalSinceNow: -(2*24*60*60))
+        let dateStr = formatter.stringFromDate(date)
+        print(dateStr)
+        
+        //定义SQL语句
+        let sql = "DELETE FROM T_Status WHERE createDate  <= '\(dateStr)';"
+        
+        //执行SQL语句
+        SQLiteManager.shareManager().dbQueue?.inDatabase({ (db) -> Void in
+            db.executeUpdate(sql, withArgumentsInArray: nil)
+        })
+    }
+    
+    
+    /**
+     加载微博数据
+     */
     class func loadStatuses(since_id: Int, max_id: Int, finished: (statuses: [[String: AnyObject]]?, error: NSError?)->())
     {
+        cleanStatuses()
         //1.从本地数据库获取
         loadCacheStatuses(since_id, max_id: max_id) { (statuses, error) -> () in
             //2.如果本地有，直接返回
@@ -29,6 +57,9 @@ class StatusDAO: NSObject
         }
     }
     
+    /**
+     从网络获取数据
+     */
     class func loadNetworkStatused(since_id: Int, max_id: Int, finished: (statuses: [[String: AnyObject]]?, error: NSError?)->())
     {
         print("-----------从网络获取")
@@ -62,6 +93,9 @@ class StatusDAO: NSObject
         }
     }
     
+    /**
+     从本地数据库获取数据
+     */
     class func loadCacheStatuses(since_id: Int, max_id: Int, finished: (statuses: [[String: AnyObject]], error: NSError?)->())
     {
         //定义SQL语句
